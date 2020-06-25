@@ -9,7 +9,7 @@ variable "vpc_id" {
 }
 
 variable "subnet_ids" {
-  description = "The ID of the subnet to associate with the Client VPN endpoint."
+  description = "The IDs of the subnets to associate with the Client VPN endpoint."
 }
 
 variable "server_certs" {
