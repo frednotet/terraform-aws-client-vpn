@@ -27,7 +27,12 @@ resource "aws_ec2_client_vpn_network_association" "client-vpn-network-associatio
 
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.client-vpn-endpoint.id
   subnet_id              = var.subnet_ids[count.index]
-
+  
+  lifecycle {
+    ignore_changes = [
+      "subnet_id"
+    ]
+  }
 }
 
 
