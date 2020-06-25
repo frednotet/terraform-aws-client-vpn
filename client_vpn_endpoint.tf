@@ -30,7 +30,7 @@ resource "aws_ec2_client_vpn_network_association" "client-vpn-network-associatio
   
   lifecycle {
     ignore_changes = [
-      "subnet_id"
+      subnet_id
     ]
   }
 }
@@ -57,10 +57,6 @@ resource "null_resource" "client_vpn_route" {
   provisioner "local-exec" {
     when = create
     command = "aws ec2 create-client-vpn-route --client-vpn-endpoint-id ${aws_ec2_client_vpn_endpoint.client-vpn-endpoint.id} --destination-cidr-block 0.0.0.0/0 --target-vpc-subnet-id ${var.subnet_ids[count.index]} --description Internet-Access"
-  }
-  provisioner "local-exec" {
-    when = destroy
-    command = "aws ec2  delete-client-vpn-route --client-vpn-endpoint-id ${aws_ec2_client_vpn_endpoint.client-vpn-endpoint.id} --destination-cidr-block 0.0.0.0/0"
   }
 
   depends_on = [
